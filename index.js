@@ -4,14 +4,21 @@
 	var request = require('request');
 	// var redis = require("redis"),
  //       	client = redis.createClient();
+ 	var args = process.argv;
 
 	var config = {
+		defaults: {
+			port: 3000
+		},
 		"providers": ['http://www.celestrak.com/NORAD/elements/resource.txt']
 	};
 
 	var tles = {};
 
+	var port = args[2] || config.defaults.port;
+
 	app.get('/', function(req, res){
+		console.log('request headers: ', req.headers);
 		var satID = req.query.sat || req.query.sat;
 		var callback = req.query.callback || req.query.cb || 'tle_callback';
 
@@ -52,7 +59,7 @@
 	}
 
 	function init() {
-		var server = app.listen(3001, function() {
+		var server = app.listen(port, function() {
 		    console.log('Listening on port %d', server.address().port);
 		});
 
