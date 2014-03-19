@@ -19,12 +19,29 @@
 
 	app.get('/', function(req, res){
 		console.log('request headers: ', req.headers);
-		var satID = req.query.sat || req.query.sat;
-		var callback = req.query.callback || req.query.cb || 'tle_callback';
+		var output;
+		var satID = req.query.sat || req.query.id;
+		var callback = req.query.callback || req.query.cb;
 
 		var output = JSON.stringify(tles, null, 4);
 
-		res.send(callback + '({tle:"' + tles[satID] + '"});');
+		res.setHeader("Access-Control-Allow-Origin", "*");
+
+		if(typeof satID != 'undefined') {
+			output = {
+				tle: tles[satID]
+			};
+		} else {
+			output = {
+				error: "Satellite ID not found."
+			};
+		}
+
+		if(callback) {
+			res.send(callback + '(' + JSON.stringify(output) + ');');
+		} else {
+			res.send(JSON.stringify(output));
+		}
 	});
 
 	function getTLE(url, callback) {

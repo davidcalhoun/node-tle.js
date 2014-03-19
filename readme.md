@@ -12,7 +12,7 @@ foo({tle:"SKYSAT-1 1 39418U 13066C 14077.46176743 .00002235 00000-0 20655-3 0 35
 
 Notes
 ------------
--returned tle has new line characters embedded in it, though it’s not obvious here
--satellite id can be passed in as “sat” or “id”
--callback can be specified as “cb” or “callback”
--if no callback is specified, tle_callback will be returned
+*	returned tle has new line characters embedded in it, though it’s not obvious here
+*	satellite id can be passed in as “sat” or “id”
+*	callback can be specified as “cb” or “callback”
+*	if no callback is specified, tle_callback will be returned
